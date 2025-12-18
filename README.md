@@ -1,7 +1,4 @@
 
-
-
-```markdown
 # Stock Prediction Portal 📈
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
@@ -117,7 +114,9 @@ npm start
 4. **Prediction:** The model predicts the next day's closing price based on the latest data.
 5. **Visualization:** The React frontend fetches these predictions via API and renders them on the dashboard.
 
+## 📸 Screenshots
 
+*(Add your screenshots here. Example: `![Dashboard Screenshot](path/to/image.png)`)*
 
 ## 🤝 Contributing
 
@@ -130,4 +129,6 @@ This project is open-source and available under the [MIT License](https://www.go
 ---
 
 **Author:** [Syed Ishaq](https://www.google.com/search?q=https://github.com/ishaq019)
+
+```
 
