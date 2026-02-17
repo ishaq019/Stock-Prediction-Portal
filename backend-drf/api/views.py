@@ -15,6 +15,8 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.models import load_model
 from sklearn.metrics import mean_squared_error, r2_score
 
+# Load model once at module level using absolute path
+MODEL_PATH = os.path.join(settings.BASE_DIR, 'stock_prediction_model.keras')
 
 
 class StockPredictionAPIView(APIView):
@@ -79,7 +81,7 @@ class StockPredictionAPIView(APIView):
             scaler = MinMaxScaler(feature_range=(0,1))
 
             # Load ML Model
-            model = load_model('stock_prediction_model.keras')
+            model = load_model(MODEL_PATH)
 
             # Preparing Test Data
             past_100_days = data_training.tail(100)
