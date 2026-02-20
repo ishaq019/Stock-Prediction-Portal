@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const baseURL = import.meta.env.VITE_BACKEND_BASE_API
+const baseURL = "https://stock-prediction-portal-backend-hos.vercel.app"
 const axiosInstance = axios.create({
     baseURL: baseURL,
     headers: {
