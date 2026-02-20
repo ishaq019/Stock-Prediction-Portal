@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.now.sh', ]
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.now.sh', .onrender.com ]
 
 
 # Application definition
@@ -139,6 +139,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     "https://syedishaq.me",
   "https://www.syedishaq.me",
+    
   "https://ishaq019.github.io",
 ]
 
