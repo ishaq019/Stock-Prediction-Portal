@@ -1,8 +1,8 @@
 import React, {useContext, useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import { faSpinner, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import axiosInstance from '../axiosInstance'
+import {useNavigate, Link} from 'react-router-dom'
 import { AuthContext } from '../AuthProvider'
 
 const Login = () => {
@@ -16,20 +16,31 @@ const Login = () => {
   const handleLogin = async (e) =>{
     e.preventDefault();
     setLoading(true);
+    setError('');
 
     const userData = {username, password}
-    console.log('userData==>', userData);
 
     try{
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', userData)
+      const response = await axiosInstance.post('/token/', userData)
       localStorage.setItem('accessToken', response.data.access)
       localStorage.setItem('refreshToken', response.data.refresh)
-      console.log('Login successful');
       setIsLoggedIn(true)
       navigate('/dashboard')
     }catch(error){
-      console.error('Invalid credentials')
-      setError('Invalid credentials')
+      if (error.response) {
+        if (error.response.status === 401) {
+          setError('Invalid username or password.')
+        } else if (error.response.status >= 500) {
+          setError('Server error. Please try again later.')
+        } else if (error.response.data?.detail) {
+          setError(error.response.data.detail)
+        } else {
+          setError('Login failed. Please try again.')
+        }
+      } else {
+        setError('Network error. Please check your connection.')
+      }
+      console.error('Login error:', error)
     }finally{
       setLoading(false)
     }
@@ -40,24 +51,31 @@ const Login = () => {
     <>
     <div className='container'>
         <div className="row justify-content-center">
-            <div className="col-md-6 bg-light-dark p-5 rounded">
-                <h3 className='text-light text-center mb-4'>Login to our Portal</h3>
+            <div className="col-md-5 bg-light-dark p-5 rounded">
+                <h3 className='text-light text-center mb-4'>
+                    <FontAwesomeIcon icon={faSignInAlt} className="me-2" />
+                    Login
+                </h3>
                 <form onSubmit={handleLogin}>
                   <div className='mb-3'>
-                    <input type="text" className='form-control' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <label className='form-label text-secondary'>Username</label>
+                    <input type="text" className='form-control' placeholder='Enter your username' autoComplete='username' value={username} onChange={(e) => setUsername(e.target.value)} required />
                   </div>
                     
                     <div className='mb-3'>
-                    <input type="password" className='form-control ' placeholder='Set password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <label className='form-label text-secondary'>Password</label>
+                    <input type="password" className='form-control' placeholder='Enter your password' autoComplete='current-password' value={password} onChange={(e) => setPassword(e.target.value)} required />
                     </div>
                     
-                    {error && <div className='text-danger'>{error}</div> }
+                    {error && <div className='alert alert-danger py-2'>{error}</div> }
 
                     {loading ? (
-                      <button type='submit' className='btn btn-info d-block mx-auto' disabled><FontAwesomeIcon icon={faSpinner} spin /> Logging in...</button>
+                      <button type='submit' className='btn btn-info d-block w-100' disabled><FontAwesomeIcon icon={faSpinner} spin /> Logging in...</button>
                     ) : (
-                      <button type='submit' className='btn btn-info d-block mx-auto'>Login</button>
+                      <button type='submit' className='btn btn-info d-block w-100'>Login</button>
                     )}
+
+                    <p className='text-secondary text-center mt-3 mb-0'>Don't have an account? <Link to='/register' className='text-info'>Register here</Link></p>
                     
                 </form>
             </div>

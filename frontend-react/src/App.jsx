@@ -10,19 +10,21 @@ import AuthProvider from './AuthProvider'
 import Dashboard from './components/dashboard/Dashboard'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
+import NotFound from './components/NotFound'
 
 function App() {
 
   return (
     <>
     <AuthProvider>
-      <BrowserRouter >
+      <BrowserRouter basename="/Stock-Prediction-Portal">
       <Header />
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/register' element={<PublicRoute><Register /></PublicRoute>} />
           <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} />
           <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       <Footer />
       </BrowserRouter>

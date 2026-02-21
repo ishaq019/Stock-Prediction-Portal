@@ -14,3 +14,50 @@ body{
 .container{
     flex: 1;
 }
+
+/* Form inputs dark theme */
+.form-control {
+    background-color: #343a40;
+    border-color: #495057;
+    color: #e9ecef;
+}
+.form-control:focus {
+    background-color: #3d4349;
+    border-color: #17a2b8;
+    color: #e9ecef;
+    box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25);
+}
+.form-control::placeholder {
+    color: #6c757d;
+}
+.form-control:disabled {
+    background-color: #2b3035;
+    opacity: 0.7;
+}
+
+/* Chart image cards */
+.img-fluid {
+    border-radius: 4px;
+}
+
+/* Alert overrides for dark theme */
+.alert-danger {
+    background-color: #3d1f28;
+    border-color: #5c2d3e;
+    color: #f5a5b8;
+}
+.alert-success {
+    background-color: #1e3a2f;
+    border-color: #2d5a48;
+    color: #a5d6c2;
+}
+
+/* Smooth transitions */
+.btn {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Footer spacing */
+.footer {
+    margin-top: auto !important;
+}
